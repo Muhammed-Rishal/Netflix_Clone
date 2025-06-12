@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:netflix_clone/common/utils.dart';
 import 'package:netflix_clone/models/upcoming_model.dart';
+import 'package:netflix_clone/screens/movie_detailed_screen.dart';
 
 class MovieCardWidget extends StatelessWidget {
   final Future<UpcomingMovieModel> future;
@@ -32,12 +33,17 @@ class MovieCardWidget extends StatelessWidget {
                 scrollDirection: Axis.horizontal,
                 itemCount: data!.length,
                 itemBuilder: (context, index) {
-                  return Container(
-                    padding: EdgeInsets.all(5),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
+                  return InkWell(
+                    onTap: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => MovieDetailScreen(movieId: data[index].id),));
+                    },
+                    child: Container(
+                      padding: EdgeInsets.all(5),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Image.network('$imageUrl${data[index].posterPath}'),
                     ),
-                    child: Image.network('$imageUrl${data[index].posterPath}'),
                   );
                 },
               ),
